@@ -28,7 +28,9 @@ endfunction
 
 private function OilDamageUnit takes nothing returns nothing
  local unit picked = GetEnumUnit()
-	call DamageTarget(picked, picked, Damage(BurningOilLevel(picked), DAMAGE_TYPE_MAGICAL)
+
+	call DamageTarget(picked, picked, Damage(BurningOilLevel(picked)), DAMAGE_TYPE_MAGICAL)
+
  set picked = null
 endfunction
 

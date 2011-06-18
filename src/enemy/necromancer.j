@@ -8,7 +8,7 @@ globals
     private constant integer shieldSpell = 'A028'
     private constant integer shieldBuff = 'Bams'
     
-    private constant integer manaCost = 10.
+    private constant integer manaCost = 10
 endglobals
 
 private function AntiMagic_Filter takes nothing returns boolean

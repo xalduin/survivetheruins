@@ -30,7 +30,7 @@ private function Main takes DamagePacket packet returns nothing
  
  	if level > 0 and mana > 0. then
  		set burn = ManaBurnAmount(level)
- 		call AddUnitMana(packet.source, -burn)
+ 		call UnitAddMana(packet.source, -burn)
  		
  		if burn > mana then
  			set burn = mana
