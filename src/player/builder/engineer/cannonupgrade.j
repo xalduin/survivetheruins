@@ -6,16 +6,32 @@ globals
     private integer array iceTowers
     private constant integer towerCount = 3
     
-    private constant integer tankId = 'h00M'
+    constant integer tankId = 'h00M'
     private constant real tankBonus = 5.
     
-    private constant integer siegeId = 'h00Z'
+    constant integer siegeId = 'h00Z'
     private constant real siegeBonus = 10.
+	
+	constant integer onslaughtId = 'h00Y'
+	private constant real onslaughtBonus = 15.
     
-    private constant integer battleId = 'h010'
+    constant integer battleId = 'h010'
     private constant real battleBonus = 7.
+	
+	constant integer assaultId = 'h00X'
+	private constant real assaultBonus = 10.5
     
     private constant integer upgradeId = 'R001'
+	
+	private constant integer arcaneTowerId = 'h00J'
+	private constant real arcaneDamageBonus = 15.
+	private constant integer advancedArcaneId = 'h00K'
+	private constant real advancedArcaneDamageBonus = 22.5
+	
+	private constant integer guardTowerId = 'h00N'
+	private constant real guardDamageBonus = 25.
+	private constant integer advancedGuardId = 'h00Q'
+	private constant real advancedGuardDamageBonus = 40.
 endglobals
 
 private function FireBonusDamage takes integer level returns real
@@ -23,14 +39,6 @@ private function FireBonusDamage takes integer level returns real
 endfunction
 private function IceBonusDamage takes integer level returns real
     return I2R(level + 4 + level/2)
-endfunction
-
-private function ArcaneBonusDamage takes integer level returns real
-	return I2R(level + 1) * 7.5
-endfunction
-private function GuardBonusDamage takes integer level returns real
-	//25, 40
-	return I2R(10 + 15 * level)
 endfunction
 
 private function Main takes nothing returns nothing
@@ -47,7 +55,14 @@ private function Main takes nothing returns nothing
     call AddUnitTypeDamageBonus(owner, tankId, tankBonus)
     call AddUnitTypeDamageBonus(owner, siegeId, siegeBonus)
     call AddUnitTypeDamageBonus(owner, battleId, battleBonus)
+	call AddUnitTypeDamageBonus(owner, onslaughtId, onslaughtBonus)
+	call AddUnitTypeDamageBonus(owner, assaultId, assaultBonus)
     
+	call AddUnitTypeDamageBonus(owner, arcaneTowerId, arcaneDamageBonus)
+	call AddUnitTypeDamageBonus(owner, advancedArcaneId, advancedArcaneDamageBonus)
+	call AddUnitTypeDamageBonus(owner, guardTowerId, guardDamageBonus)
+	call AddUnitTypeDamageBonus(owner, advancedGuardId, advancedGuardDamageBonus)
+	
     call UnitStats_PlayerUpdate(owner)
  set owner = null
 endfunction
