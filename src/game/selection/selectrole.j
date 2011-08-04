@@ -244,8 +244,8 @@ private function Init takes nothing returns nothing
     
     call AddRoleInfo('h006', "Builder", "Excels in dealing damage to large amounts of enemies, but lacks a solid source of physical damage.")
     call AddRoleInfo('h00L', "Builder", "All around good builder with buildings to suit every purpose.")
-    call AddRoleInfo('h00R', "Builder", "Strong offensive structures, but buildings require a power supply to function.")
-	call AddRoleInfo('o006', "Builder", "Strong all around builder, but lacks magic damage.")
+    call AddRoleInfo('h00R', "Builder", "Strong defensive structures, but buildings require a power supply to function.")
+	call AddRoleInfo('o006', "Builder", "Strong all around builder, but weak to magic.")
 endfunction
 
 

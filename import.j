@@ -87,6 +87,7 @@
 //! import "src/player/builder/physicist/lightningtower.j"
 //! import "src/player/builder/physicist/obelisk.j"
 //! import "src/player/builder/physicist/repairorb.j"
+//! import "src/player/builder/physicist/shield.j"
 //! import "src/player/builder/physicist/shocktowers.j"
 //! import "src/player/builder/researchallowed.j"
 //! import "src/player/builder/updatetower.j"

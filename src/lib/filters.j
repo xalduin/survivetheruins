@@ -46,6 +46,8 @@ globals
     boolexpr Filter_IsUnitValidBuffTarget
     boolexpr Filter_IsUnitAnyValidTarget  // Building, unit, non spell immune, etc
     boolexpr Filter_IsUnitAnyValidSpellTarget
+	
+	boolexpr Filter_CanRestoreMana
 endglobals
 
 function Null_Filter takes nothing returns boolean
@@ -108,6 +110,11 @@ function NotIsUnitSelf_Filter takes nothing returns boolean
     return GetFilterUnit() != filterUnit
 endfunction
 
+private function CanRestoreMana_Filter takes nothing returns boolean
+ local real maxMana = GetUnitState(GetFilterUnit(), UNIT_STATE_MAX_MANA)
+    return maxMana > 0 and GetUnitState(GetFilterUnit(), UNIT_STATE_MANA) < maxMana
+endfunction
+
 private function InitCommonFilters takes nothing returns nothing
     set Filter_Null = Filter(function Null_Filter)
     set Filter_IsUnitPlayerUnit = Filter(function IsUnitPlayerUnit_Filter)
@@ -148,6 +155,8 @@ private function InitCommonFilters takes nothing returns nothing
     set Filter_IsUnitGroundTarget = And(Filter_IsUnitValidTarget, Filter_IsUnitGround)
     set Filter_IsUnitStructureTarget = And( Filter_IsUnitEnemy, And(Filter_IsUnitAlive, Filter_IsUnitStructure) )
     set Filter_IsUnitValidBuffTarget = And(Filter_IsUnitAlly, Filter_IsUnitAlive)
+	
+	set Filter_CanRestoreMana = Filter(function CanRestoreMana_Filter)
 endfunction
 
 

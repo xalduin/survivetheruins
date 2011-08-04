@@ -1,13 +1,20 @@
 scope ElectricGenerator initializer Init
-// requires GroupUtils, CommonFilters, MiscFunctions
 
 
 globals
     private constant integer genId1 = 'h00T'
+	private constant integer genOneMaxManaRestore = 30
+	
     private constant integer genId2 = 'h015'
-    
+	private constant integer genTwoMaxManaRestore = 50
+	
+	private constant integer capacitorId = 'h018'
+    private constant integer capacitorMaxManaRestore = 50
+	
     private constant real updateRate = 1.
-    private constant real manaRadius = 900.
+
+    private constant real generatorRadius = 900.
+	private constant real capacitorRadius = 400.
     
     private boolexpr manaFilter = null
     private boolexpr Filter_IsUnitGenerator = null
@@ -17,14 +24,29 @@ globals
 endglobals
 
 private function Mana takes unit gen returns integer
+ local integer id = GetUnitTypeId(gen)
 
-    if GetUnitTypeId(gen) == genId1 then
-        return 30
-    elseif GetUnitTypeId(gen) == genId2 then
-        return 50
-    endif
+    if id == genId1 then
+        return genOneMaxManaRestore
+    elseif id == genId2 then
+        return genTwoMaxManaRestore
+    elseif id == capacitorId then
+		return RMinBJ(GetUnitState(gen, UNIT_STATE_MANA), capacitorMaxManaRestore)
+	endif
 
     return 0
+endfunction
+
+private function Radius takes unit gen returns real
+ local integer id = GetUnitTypeId(gen)
+ 
+	if id == genId1 or id == genId2 then
+		return generatorRadius
+	elseif id == capacitorId then
+		return capacitorRadius
+	endif
+	
+	return 0.
 endfunction
 
 private function IsUnitGenerator_Filter takes nothing returns boolean
@@ -45,6 +67,7 @@ endfunction
 
 private function GeneratorAddMana takes nothing returns nothing
  local unit generator = GetEnumUnit()
+ local boolean isCapacitor = GetUnitTypeId(generator) == capacitorId
  
  local group temp = CreateGroup()
  local unit picked
@@ -54,7 +77,7 @@ private function GeneratorAddMana takes nothing returns nothing
  local integer addedMana
 
     set filterPlayer = GetOwningPlayer(generator)
-    call GroupEnumUnitsInRange(temp, GetUnitX(generator), GetUnitY(generator), manaRadius, manaFilter)
+    call GroupEnumUnitsInRange(temp, GetUnitX(generator), GetUnitY(generator), Radius(generator), Filter_CanRestoreMana)
     set count = CountUnitsInGroup(temp)
     
     // Amount of mana to be split amongst buildings
@@ -63,6 +86,10 @@ private function GeneratorAddMana takes nothing returns nothing
     else
         set mana = 0
     endif
+	
+	if mana == 0 then
+		call GroupClear(temp)
+	endif
     
     loop
         set picked = FirstOfGroup(temp)
@@ -70,6 +97,10 @@ private function GeneratorAddMana takes nothing returns nothing
         
         set addedMana = GetAddedMana(picked, mana)
         call UnitAddMana(picked, mana)
+
+		if isCapacitor then
+			call UnitAddMana(generator, -addedMana)
+		endif
         
         set count = count - 1
         if addedMana < mana and count > 0 then
