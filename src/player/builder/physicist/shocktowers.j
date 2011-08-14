@@ -1,3 +1,7 @@
+//Requires:
+//	DamageEvent			(lib/damage/damageevent.j)
+//	PhysicistShared		(shared.j)
+
 scope ShockTower initializer Init
 
 
@@ -45,13 +49,14 @@ private function OnAttack takes DamagePacket packet returns nothing
  
     if packet.isAttack and damage > 0. and manaCost > 0. and unitMana >= manaCost then
         set packet.currentDamage = damage
+        set packet.damageType = DAMAGE_TYPE_ELECTRIC
         call SetUnitState(packet.source, UNIT_STATE_MANA, unitMana - manaCost)
         call DoSFX(unitType, packet.target)
     endif
 endfunction
 
 private function Init takes nothing returns nothing
-    call DamageEvent_Create(OnAttack, 10)
+    call DamageEvent_Create(OnAttack, 4)
 endfunction
 
 

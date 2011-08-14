@@ -4,10 +4,17 @@ library DamageEvent initializer Init requires LinkedList
 globals
     constant integer DAMAGE_TYPE_PHYSICAL = 1
     constant integer DAMAGE_TYPE_MAGICAL = 2
-    constant integer DAMAGE_TYPE_EXTRA = 3
+    constant integer DAMAGE_TYPE_UNKNOWN = 0
 
     private List EventList = 0
+    private integer damageTypeCount = 0
 endglobals
+
+// Returns a unique integer used for damage types
+public function NewDamageType takes nothing returns integer
+	set damageTypeCount = damageTypeCount + 1
+	return damageTypeCount
+endfunction
 
 function interface DamageResponse takes DamagePacket packet returns nothing
 
@@ -64,7 +71,7 @@ private keyword HandleDamage
 function DamageTarget takes unit source, unit target, real damage, integer damageType returns nothing
  local DamagePacket packet = DamagePacket.create(source, target, damage, damageType, false)
 
-    if damageType < 1 or damageType > 3 then
+    if damageType < 0 or damageType > damageTypeCount then
         call packet.destroy()
         return
     endif

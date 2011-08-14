@@ -17,7 +17,7 @@ globals
     
     constant integer ATTACK_TYPE_PHYSICAL = 1
     constant integer ATTACK_TYPE_MAGICAL = 2
-    constant integer ATTACK_TYPE_OTHER = 3
+    constant integer ATTACK_TYPE_OTHER = 0
 
     constant key HERO_LEVEL_KEY
     //! runtextmacro CreateKey("HP")

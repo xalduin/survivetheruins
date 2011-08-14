@@ -1,5 +1,11 @@
+//Requires:
+//	PhysicistShared			(shared.j)
+//	DamageFunctions			(lib/spelllib/damageutils.j)
+//	TimedEffects			(lib/spelllib/timedeffects.j)
+//	ChainSpell				(lib/spelllib/chainspell.j)
+//	UnitUtils				(lib/unitutils.j)
+
 scope LightningTower initializer Init
-// requires DamageEvent, TimedEffects, ChainSpell, DamageFunctions, UnitUtils
 
 
 globals
@@ -53,15 +59,12 @@ private function ChainLightning_Hit takes unit target, unit previous, ChainSpell
 
     if previous != null then
         call TimedLightningUnit(previous, target, lightningType, lightningDuration)
-    //else
-        //call TimedLightningUnit(data.caster, target, lightningType, lightningDuration)
     endif
 
     call AddEffectTimed(AddSpecialEffectTarget(targetSFX, target, "origin"), 1.)
-    call DamageTarget(data.caster, target, damageStruct.damage, DAMAGE_TYPE_MAGICAL)
+    call DamageTarget(data.caster, target, damageStruct.damage, DAMAGE_TYPE_ELECTRIC)
     
     set damageStruct.damage = damageStruct.damage * DamageMultiplier(data.caster)
-    //call DelayedDamage(data.caster, target, LightningDamage(data.caster), ATTACK_TYPE_MAGIC, DAMAGE_TYPE_SPELL, false)
 endfunction
 
 private function ChainLightning_Finish takes unit u, unit p, ChainSpell data returns nothing

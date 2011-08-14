@@ -10,6 +10,7 @@ module BuffKey
         return this.BUFFKEY
     endmethod
 endmodule
+
 // Should only be used if there's no buffType-specific data to actually copy
 // when cloning the struct
 module DefaultClone

@@ -1,3 +1,9 @@
+//Requires:
+//	PhysicistMisc			(shared.j)
+//	DamageFunctions			(lib/spelllib/damageutils.j)
+//	BuildingMisc			(player/builder/misc.j)
+
+
 scope ObeliskShock initializer Init
 //requires DamageEvent, DamageFunctions, BuildingMisc
 
@@ -41,7 +47,7 @@ private function OnAttack takes DamagePacket packet returns nothing
  
     if packet.isAttack and level > 0 and GetRandomInt(1, 100) <= ShockChance(level) and not IsBuildingDisabled(target) then
         set filterPlayer = GetOwningPlayer(target)
-        call DamageArea(target, totalDamage, x, y, ShockRadius(level), DAMAGE_TYPE_MAGICAL, Filter_IsUnitValidSpellTarget)
+        call DamageArea(target, totalDamage, x, y, ShockRadius(level), DAMAGE_TYPE_ELECTRIC, Filter_IsUnitValidSpellTarget)
         
         call DestroyEffect(AddSpecialEffect(shockSFX, x, y))
     endif
