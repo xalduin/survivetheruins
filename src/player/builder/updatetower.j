@@ -41,9 +41,10 @@ private function AbilityUpgrade_Callback takes nothing returns nothing
     
     set level = GetPlayerTechCount(enumPlayer, 'R005', true) + 1
     
-    // Shock/Tesla Towers
+    // Shock/Tesla/Electrocute Towers
     call SetAbilityLevelForUnits(enumPlayer, 'h00S', 'A009', level)
     call SetAbilityLevelForUnits(enumPlayer, 'h00V', 'A00T', level)
+    call SetAbilityLevelForUnits(enumPlayer, 'h01H', 'A012', level)
 
  set enumPlayer = null
 endfunction
