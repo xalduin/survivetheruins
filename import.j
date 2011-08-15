@@ -99,3 +99,4 @@
 //! import "src/player/multiboard/switchboard.j"
 //! import "src/player/multiboard/unitinfo.j"
 //! import "src/player/soul/reveal.j"
+//! import "src/test/scale.j"
