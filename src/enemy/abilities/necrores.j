@@ -6,7 +6,7 @@ globals
     private constant integer skeletonId = 'u00I'
     
     private constant real reviveRadius = 600.
-    private constant real manaCost = 25.
+    private constant real manaCost = 75.
     private constant string reviveSFX = "Abilities\\Spells\\Undead\\RaiseSkeletonWarrior\\RaiseSkeleton.mdl"
     
     private boolexpr Filter_IsNecroWithMana = null
