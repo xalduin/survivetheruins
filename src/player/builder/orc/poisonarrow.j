@@ -3,7 +3,8 @@ scope OrcPoisonArrow initializer Init
 
 globals
     private constant integer UNIT_BATTLE_TOWER = 'o003'
-    private constant integer UNIT_WAR_TOWER = 'o004'
+    private constant integer UNIT_ASSAULT_TOWER = 'o004'
+    private constant integer UNIT_WAR_TOWER = 'o008'
 
     private constant integer dummyAuraId = 'A02Y'
     private constant integer dummyBuffId = 'B009'
@@ -19,7 +20,10 @@ private constant function AttackSlow takes integer level returns real
 	return 0.
 endfunction
 
-private constant function MovementSlow takes integer level returns real
+private function MovementSlow takes integer level returns real
+	if level == 3 then
+		return .15
+	endif
 	return 0.
 endfunction
 
@@ -40,8 +44,8 @@ private struct PoisonArrowBuff extends BuffType
     public method onCreate takes BuffData data returns nothing
         call UnitAddDummyBuff(data.target, dummyAuraId, dummyBuffId)
         call data.setUpdateInterval(1.)
-        call AddUnitAttackSpeedMult(data.target, AttackSlow(data.level))
-        call AddUnitMoveSpeedMult(data.target, MovementSlow(data.level))
+        call AddUnitAttackSpeedMult(data.target, -AttackSlow(data.level))
+        call AddUnitMoveSpeedMult(data.target, -MovementSlow(data.level))
         call UnitStats_Update(data.target)
         
         call this.onUpdate(data)
@@ -78,7 +82,8 @@ endstruct
 private function OnAttack takes DamagePacket packet returns nothing
  local unit target = packet.target
  local unit attacker = packet.source
- local boolean correctUnit = GetUnitTypeId(attacker) == UNIT_BATTLE_TOWER or GetUnitTypeId(attacker) == UNIT_WAR_TOWER
+ local integer unitType = GetUnitTypeId(attacker)
+ local boolean correctUnit = unitType == UNIT_BATTLE_TOWER or unitType == UNIT_WAR_TOWER or unitType == UNIT_ASSAULT_TOWER
  local integer level = GetPlayerTechCount(GetOwningPlayer(attacker), POISON_ARROW_UPGRADE, true)
  
     if packet.isAttack and level > 0 and correctUnit and IsUnitType(target, UNIT_TYPE_MECHANICAL) == false then
