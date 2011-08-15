@@ -21,6 +21,8 @@ globals
     
     private group Structures = CreateGroup()
     private HandleTable manaTable
+    
+    private unit currentGenerator = null
 endglobals
 
 private function Mana takes unit gen returns integer
@@ -31,7 +33,7 @@ private function Mana takes unit gen returns integer
     elseif id == genId2 then
         return genTwoMaxManaRestore
     elseif id == capacitorId then
-		return RMinBJ(GetUnitState(gen, UNIT_STATE_MANA), capacitorMaxManaRestore)
+		return IMinBJ(R2I(GetUnitState(gen, UNIT_STATE_MANA)), capacitorMaxManaRestore)
 	endif
 
     return 0
@@ -55,7 +57,7 @@ endfunction
 
 private function Filter_UnitHasMana takes nothing returns boolean
  local real maxMana = GetUnitState(GetFilterUnit(), UNIT_STATE_MAX_MANA)
-    return maxMana > 0 and GetUnitState(GetFilterUnit(), UNIT_STATE_MANA) < maxMana
+    return maxMana > 0 and GetUnitState(GetFilterUnit(), UNIT_STATE_MANA) < maxMana and GetFilterUnit() != currentGenerator
 endfunction
 
 private function GetAddedMana takes unit target, real mana returns integer
@@ -77,9 +79,10 @@ private function GeneratorAddMana takes nothing returns nothing
  local integer addedMana
 
     set filterPlayer = GetOwningPlayer(generator)
-    call GroupEnumUnitsInRange(temp, GetUnitX(generator), GetUnitY(generator), Radius(generator), Filter_CanRestoreMana)
+    set currentGenerator = generator
+    call GroupEnumUnitsInRange(temp, GetUnitX(generator), GetUnitY(generator), Radius(generator), manaFilter)
     set count = CountUnitsInGroup(temp)
-    
+
     // Amount of mana to be split amongst buildings
     if count > 0 then
         set mana = Mana(generator) / I2R(count)
