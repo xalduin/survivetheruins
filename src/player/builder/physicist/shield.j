@@ -13,7 +13,10 @@ endglobals
 // Also returns false is the picked shield isn't as good as the "best shield"
 
 private function IsUnitTypeShield takes nothing returns boolean
-	if GetUnitTypeId(GetFilterUnit()) != SHIELD_ID then
+	if IsUnitEnemy(GetFilterUnit(), filterPlayer) then
+		return false
+
+	elseif GetUnitTypeId(GetFilterUnit()) != SHIELD_ID then
 		return false
 		
 	// A shield isn't as good as the best shield if it has less mana
@@ -30,6 +33,7 @@ private function OnAttack takes DamagePacket packet returns nothing
  local real blockedDamage = packet.currentDamage * DAMAGE_REDUCTION
  
 	set bestShield = null
+	set filterPlayer = GetOwningPlayer(packet.target)
 	call GroupEnumUnitsInRange(shields, GetUnitX(packet.target), GetUnitY(packet.target), AREA_OF_EFFECT, Filter(function IsUnitTypeShield))
 
 	call DestroyGroup(shields)
@@ -39,7 +43,7 @@ private function OnAttack takes DamagePacket packet returns nothing
 		return
 	endif
 	
-	set blockedDamage = RMaxBJ(blockedDamage, GetUnitState(bestShield, UNIT_STATE_MANA))
+	set blockedDamage = RMinBJ(blockedDamage, GetUnitState(bestShield, UNIT_STATE_MANA))
 	set packet.currentDamage = packet.currentDamage - blockedDamage
 	call UnitAddMana(bestShield, -blockedDamage)
 endfunction
