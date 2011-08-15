@@ -3,7 +3,7 @@ scope ShieldGenerator initializer Init
 
 globals
 	private constant integer SHIELD_ID = 'h017'
-	private constant real DAMAGE_REDUCTION = .15
+	private constant real DAMAGE_REDUCTION = .10
 	private constant real AREA_OF_EFFECT = 400.
 	
 	private unit bestShield = null
@@ -22,7 +22,7 @@ private function IsUnitTypeShield takes nothing returns boolean
 	endif
  
 	set bestShield = GetFilterUnit()
-	return true
+	return false
 endfunction
 
 private function OnAttack takes DamagePacket packet returns nothing
@@ -41,6 +41,7 @@ private function OnAttack takes DamagePacket packet returns nothing
 	
 	set blockedDamage = RMaxBJ(blockedDamage, GetUnitState(bestShield, UNIT_STATE_MANA))
 	set packet.currentDamage = packet.currentDamage - blockedDamage
+	call UnitAddMana(bestShield, -blockedDamage)
 endfunction
 
 private function Init takes nothing returns nothing

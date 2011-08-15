@@ -22,7 +22,7 @@ endglobals
 
 private function LightningDamage takes unit caster returns real
     if GetUnitTypeId(caster) == thunderTowerId then
-        return 140.
+        return 200.
     elseif GetUnitTypeId(caster) == lightningTowerId then
         return 70.
     endif
@@ -38,7 +38,7 @@ endfunction
 
 private function ManaCost takes unit caster returns real
     if GetUnitTypeId(caster) == thunderTowerId then
-        return 75.
+        return 100.
     endif
     return 30.  // Lightning Tower
 endfunction

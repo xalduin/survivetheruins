@@ -3,14 +3,14 @@
 //	DamageFunctions			(lib/spelllib/damageutils.j)
 //	BuildingMisc			(player/builder/misc.j)
 
-
 scope ObeliskShock initializer Init
-//requires DamageEvent, DamageFunctions, BuildingMisc
 
 
 globals
     private constant integer shock1 = 'A00N'
     private constant integer shock2 = 'A00O'
+    private constant integer shock3 = 'A00Z'
+    
     private constant string shockSFX = "Abilities\\Weapons\\Bolt\\BoltImpact.mdl"
 endglobals
 
@@ -32,6 +32,8 @@ private function GetShockLevel takes unit whichUnit returns integer
         return 1
     elseif GetUnitAbilityLevel(whichUnit, shock2) > 0 then
         return 2
+    elseif GetUnitAbilityLevel(whichUnit, shock3) > 0 then
+    	return 3
     endif
 
     return 0

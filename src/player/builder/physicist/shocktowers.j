@@ -8,6 +8,7 @@ scope ShockTower initializer Init
 globals
     private constant integer shockId = 'h00S'
     private constant integer teslaId = 'h00V'
+    private constant integer electroId = 'h01H'
     
     private constant string shockSFX = "Abilities\\Spells\\Orc\\LightningBolt\\LightningBoltMissile.mdl"
     private constant string teslaSFX = "Abilities\\Spells\\Orc\\LightningBolt\\LightningBoltMissile.mdl"
@@ -18,6 +19,8 @@ private function Damage takes integer unitType, integer level returns real
         return I2R(10 + level * 3)
     elseif unitType == teslaId then
         return I2R(18 + level * 4)
+    elseif unitType == electroId then
+    	return I2R(30 + level * 5)
     endif
     return 0.
 endfunction
@@ -27,13 +30,15 @@ private function ManaCost takes integer unitType, integer level returns real
         return 6.
     elseif unitType == teslaId then
         return 8.
+    elseif unitType == electroId then
+    	return 10.
     endif
     return 0.
 endfunction
 
 private function DoSFX takes integer unitType, unit target returns nothing
  local string sfx = shockSFX
-    if unitType == teslaId then
+    if unitType == teslaId or unitType == electroId then
         set sfx = teslaSFX
     endif
  
