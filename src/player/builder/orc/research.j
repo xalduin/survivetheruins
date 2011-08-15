@@ -13,8 +13,9 @@ globals
 	constant integer POISON_ARROW_UPGRADE = 'R00C'
 	constant integer BURNING_OIL_UPGRADE = 'R00D'
 	
-	constant integer UNIT_BURROW = 'o000'
+	constant integer UNIT_BURROW 			= 'o000'
 	constant integer UNIT_REINFORCED_BURROW = 'o001'
+	constant integer UNIT_ADVANCED_BURROW	= 'o009'
 endglobals
 
 
@@ -25,6 +26,7 @@ private function Main takes nothing returns nothing
  	if research == REINFORCED_BURROW_UPGRADE then
  		call AddUnitTypeArmorBonus(owner, UNIT_BURROW, UPGRADE_BONUS_REINFORCED_BURROW)
  		call AddUnitTypeArmorBonus(owner, UNIT_REINFORCED_BURROW, UPGRADE_BONUS_REINFORCED_BURROW)
+ 		call AddUnitTypeArmorBonus(owner, UNIT_ADVANCED_BURROW, UPGRADE_BONUS_REINFORCED_BURROW)
  		call UnitStats_PlayerUpdate(owner)
  	endif
  	
