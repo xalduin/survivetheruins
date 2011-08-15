@@ -3,9 +3,9 @@ library SetResearch
 
 globals
     integer archId = 'h006'
-    integer engId = 'h00L'
-    integer phyId = 'h00R'
-    integer orcId = 'o006'
+    integer engId  = 'h00L'
+    integer phyId  = 'h00R'
+    integer orcId  = 'o006'
 endglobals
 
 function BuilderSetResearch takes unit u returns nothing
@@ -45,15 +45,17 @@ function ResetResearch takes player p returns nothing
 endfunction
 
 function SetTechAllowed takes player p returns nothing
-	call SetPlayerTechMaxAllowedSwap('h004', 1, p)
-    call SetPlayerTechMaxAllowedSwap('h00M', 1, p)
-    call SetPlayerTechMaxAllowedSwap('h00W', 1, p)
-    call SetPlayerTechMaxAllowedSwap('h011', 0, p)
-    call SetPlayerTechMaxAllowedSwap('h012', 1, p)
-    call SetPlayerTechMaxAllowedSwap('h010', 0, p)
-    call SetPlayerTechMaxAllowedSwap('h00Z', 0, p)
-    call SetPlayerTechMaxAllowedSwap('h00O', 0, p)
-    call SetPlayerTechMaxAllowedSwap('o005', 1, p)	// Demolisher
+	call SetPlayerTechMaxAllowed(p, 'h004', 1)	// Bunker
+    call SetPlayerTechMaxAllowed(p, 'h00M', 1)	// Tank
+    call SetPlayerTechMaxAllowed(p, 'h00W', 1)	// Lightning Tower
+    call SetPlayerTechMaxAllowed(p, 'h011', 0)	// Thunder Tower
+    call SetPlayerTechMaxAllowed(p, 'h012', 1)	// Mobile War Station
+    call SetPlayerTechMaxAllowed(p, 'h010', 0)	// Battle Tank
+    call SetPlayerTechMaxAllowed(p, 'h00Z', 0)	// Siege Tank
+    call SetPlayerTechMaxAllowed(p, 'h00O', 0)	// Research Center	(starts disabled)
+    call SetPlayerTechMaxAllowed(p, 'o005', 1)	// Demolisher
+    call SetPlayerTechMaxAllowed(p, 'h00X', 0)	// Assault Tank
+    call SetPlayerTechMaxAllowed(p, 'h00Y', 0)	// Onslaught Tank
 endfunction
 
 
