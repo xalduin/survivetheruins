@@ -28,7 +28,7 @@ private function Main takes DamagePacket packet returns nothing
  local real mana = GetUnitState(packet.target, UNIT_STATE_MANA)
  local real burn
  
- 	if level > 0 and mana > 0. and packet.damageType != DAMAGE_TYPE_EXTRA then
+ 	if level > 0 and mana > 0. and packet.isAttack then
  		set burn = ManaBurnAmount(level)
  		call UnitAddMana(packet.target, -burn)
  		
