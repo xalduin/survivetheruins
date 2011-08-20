@@ -1,6 +1,6 @@
 // Separating out code so the Command library isn't as packed full of stuff
 
-library NecroSpell initializer Init requires GroupUtils
+library NecroSpell initializer Init requires GroupUtils, xebasic
 
 
 globals
@@ -31,7 +31,7 @@ function DoNecroSpell takes unit spawn returns nothing
         
         if target != null then
             call SetUnitState(spawn, UNIT_STATE_MANA, GetUnitState(spawn, UNIT_STATE_MANA) - manaCost)
-            set spawn = CreateUnit(Player(11), 'u008', GetUnitX(spawn), GetUnitY(spawn), 0.)
+            set spawn = CreateUnit(Player(11), XE_DUMMY_UNITID, GetUnitX(spawn), GetUnitY(spawn), 0.)
 
             call UnitAddAbility(spawn, shieldSpell)
             call UnitApplyTimedLife(spawn, 'BTLF', 3.)

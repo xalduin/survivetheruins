@@ -36,15 +36,6 @@ endfunction
             */  GetUnitType$UPGRADENAME$Mult(owner, unitType))  
 //! endtextmacro
 
-
-//if temp > 1. then
-        //    //set temp = -(1. - 1./temp)
-        //    set temp = 1./temp - 1.
-        //elseif temp < 1. then
-        //    set temp = 1./temp - 1.
-        //else
-        //    set temp = 0.
-        //endif
 globals
     private constant real MAX_ATTACK_SPEED_BONUS = 5.11
 endglobals

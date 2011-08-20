@@ -1,4 +1,4 @@
-library AISpawn initializer Init requires UnitId, SpawnType
+library AISpawn initializer Init requires UnitId, SpawnType, xebasic
 
 
 globals
@@ -6,18 +6,10 @@ globals
 
     integer maxTier = 5               // How many waves of spawns
     integer currentTier = 1           // Current spawn wave
-    //integer array spawnType         // Holds all the spawn unitIds
-    //integer array spawnLevelStart   // Used to indicating which indexes each wave starts/ends
-    //integer array spawnLevelEnd
 
     integer spawnsPerInterval = 5   // When undead are spawned, number that are spawned
     real updateTypeInterval = 300.  // Interval at which the wave is upgraded
     real spawnInterval = 45.        // How often undead are spawned
-    real upgradeInterval = 140.     // Interval at which unit upgrades are applied
-    real spawnCountInterval = 280.  // How often the spawn count is upgraded
-    integer maxUpgrades = 30        // Maximum amount of undead upgrades to be applied
-    integer upgradeLevel = 0        // Keeps track of the current upgrade level
-    real difficultyScale = 0.
     
     real nextIncrease = 0.          // Increased every 5 minutes to be 5 minutes more
 
@@ -42,7 +34,7 @@ struct SpawnData extends array
 endstruct
 
 function SpawnFilter takes nothing returns boolean
-    return GetWidgetLife(GetFilterUnit()) > .405 and GetUnitTypeId(GetFilterUnit()) != 'u008' and GetUnitTypeId(GetFilterUnit()) != 'u00H'
+    return GetWidgetLife(GetFilterUnit()) > .405 and GetUnitTypeId(GetFilterUnit()) != XE_DUMMY_UNITID and GetUnitTypeId(GetFilterUnit()) != 'u00H'
 endfunction
 
 function GetSpawnAmount takes nothing returns integer
@@ -71,26 +63,11 @@ function AdjustDifficulty takes nothing returns integer
  
     if spawnCount <= spawnsPerInterval / 3 then
         set clearWaveCount = clearWaveCount + 1
-    elseif clearWaveCount > 0 then
-        //set clearWaveCount = clearWaveCount - 1
     endif
-    
-    //if totalTime > nextIncrease then
-    //    set spawnsPerInterval = spawnsPerInterval + 1
-    //    set nextIncrease = nextIncrease + spawnCountInterval
-    //    return 0
-    //endif
 
     if clearWaveCount > 1 then
         set spawnsPerInterval = spawnsPerInterval + 1
-        
-        // Already increased the spawnsPerInterval and still all killed off!
-        //if clearWaveCount > 3 then
-        //    set result = R2I(I2R(spawnsPerInterval) / 2. + .5)
-        //else
-            set result = R2I(I2R(spawnsPerInterval) / 3. + .5)
-        //endif
-        
+        set result = R2I(I2R(spawnsPerInterval) / 3. + .5)
         set clearWaveCount = 0
         
         return result

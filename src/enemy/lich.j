@@ -48,7 +48,7 @@ private function CastBlizzard takes unit caster returns nothing
         set tx = x + 900. * Cos(angle)
         set ty = y + 900. * Sin(angle)
     
-        call GroupEnumUnitsInRangeOfSegment(temp, x, y, tx, ty, Blizzard_damageAOE, Filter_IsUnitValidSpellTarget)
+        call GroupEnumUnitsInRangeOfSegment(temp, x, y, tx, ty, Blizzard_damageAOE, Filter_IsUnitAnyValidSpellTarget)
 
         if CountUnitsInGroup(temp) >= 2 and not blizzardCooldown then
             call Blizzard_Main(caster, tx, ty)
@@ -73,7 +73,7 @@ public function HandleOrders takes nothing returns nothing
         call UnitRemoveAbility(Lich, silenceBuff)
     endif
 
-    if GetUnitState(Lich, UNIT_STATE_MANA) >= 50 then
+    if GetUnitState(Lich, UNIT_STATE_MANA) >= 100. then
         call CastBlizzard(Lich)
     endif
 endfunction

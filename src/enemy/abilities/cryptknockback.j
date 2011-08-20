@@ -1,4 +1,4 @@
-scope CryptLord initializer Init
+scope CryptLordKnockback initializer Init
 // requires DamageEvent, KnockbackFunctions
 
 

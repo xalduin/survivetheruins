@@ -1,4 +1,4 @@
-library CommandAI initializer InitCommand requires TimerStack, GroupUtils, AICommand, AISpawn, Lich
+library CommandAI initializer InitCommand requires TimerStack, GroupUtils, AICommand, AISpawn, Lich, CryptLord, Infernal
 
 
 globals
@@ -8,6 +8,7 @@ globals
     
     boolean spawnedCryptLord = false
     boolean spawnedLich = false
+    boolean spawnedInfernal = false
     
     unit CryptLord = null
     unit Lich = null
@@ -51,6 +52,13 @@ private function Command takes nothing returns nothing
         set currentTier = currentTier + 1
     endif
     
+    if totalTime >= 420. and not spawnedInfernal then
+    	set spawnedInfernal = true
+    	//call StartInfernal(CreateSpawn('n00E'))
+    	call ClearTextMessages()
+    	call DisplayTextToPlayer(GetLocalPlayer(), 0., 0., "You can feel the temperature begin to rise...")
+    endif
+    
     // Lich - 12 minutes remaining
     if totalTime >= 1080. and not spawnedLich then
         set spawnedLich = true
@@ -64,6 +72,7 @@ private function Command takes nothing returns nothing
     if totalTime >= 1500. and not spawnedCryptLord then
         set spawnedCryptLord = true
         set CryptLord = CreateSpawn('u000')
+        call StartCryptLord(CryptLord)
         call ClearTextMessages()
         call DisplayTextToPlayer(GetLocalPlayer(), 0., 0., "A roar is heard from deep within the ruins!")
     endif

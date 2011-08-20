@@ -13,20 +13,20 @@ function BuilderSetResearch takes unit u returns nothing
  local player p = GetOwningPlayer(u)
  
     if unitId == archId then
-        call SetPlayerTechMaxAllowed(p, 'R000', 3)
-        call SetPlayerTechMaxAllowed(p, 'R009', 1)
+        call SetPlayerTechMaxAllowed(p, 'R000', 4)	// Blazing Heat
+        call SetPlayerTechMaxAllowed(p, 'R009', 1)	// Mobile War Station
         
     elseif unitId == engId then
-        call SetPlayerTechMaxAllowed(p, 'R001', 3)
-        call SetPlayerTechMaxAllowed(p, 'R007', 1)
-        call SetPlayerTechMaxAllowed(p, 'R008', 1)
+        call SetPlayerTechMaxAllowed(p, 'R001', 3)	// Improved Cannons
+        call SetPlayerTechMaxAllowed(p, 'R007', 2)	// Siege Tank
+        call SetPlayerTechMaxAllowed(p, 'R008', 2)	// Battle Tank
 
     elseif unitId == phyId then
-        call SetPlayerTechMaxAllowed(p, 'R005', 3)
-        call SetPlayerTechMaxAllowed(p, 'R006', 1)
+        call SetPlayerTechMaxAllowed(p, 'R005', 3)	// Electrified Towers
+        call SetPlayerTechMaxAllowed(p, 'R006', 1) // Thunder Tower
         
     elseif unitId == orcId then
-    	call SetPlayerTechMaxAllowed(p, 'R003', 1)
+    	call SetPlayerTechMaxAllowed(p, 'R003', 1)	//	Demolisher
     endif
     
  set p = null

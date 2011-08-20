@@ -87,7 +87,7 @@ private function Init takes nothing returns nothing
     //##! runtextmacro AddProfile("BOUNTY","225","220","0","0.03","3","2")
     ////! runtextmacro AddProfile("MISS","255","0","0","0.03","3","1")
     ////! runtextmacro AddProfile("SS","160","255","0","0.04","5","2")
-    //##! runtextmacro AddProfile("CRITICAL","255","0","0","0.04","5","2")
+    //! runtextmacro AddProfile("CRITICAL","255","0","0","0.04","5","2")
     //! runtextmacro AddProfile("MB","82","82","255","0.04","5","2")
 
 endfunction

@@ -31,18 +31,7 @@ struct ChainSpell
     
     public static method create takes nothing returns ChainSpell
      local ChainSpell this = ChainSpell.allocate()
-     
-        /*set this.caster = null
-        set this.previousHit = null
-        set this.centerX = 0.
-        set this.centerY = 0.
-        set this.radius = 0.
-        set this.targetFilter = null
-        set this.onHit = 0
-        set this.onFinish = 0
-        set this.repeat = false
-        set this.maxHits = 0
-        set this.dataStruct = 0*/
+
         set this.hitUnits = CreateGroup()
      
         return this

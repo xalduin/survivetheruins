@@ -10,8 +10,8 @@ globals
     
     private constant real lightningDelay = .25
     private constant real lightningDuration = .5
-    private constant string lightningType = "CLSB"
-    private constant string targetSFX = "Abilities\\Weapons\\Bolt\\BoltImpact.mdl"
+    private constant string lightningType = "AFOD"
+    private constant string targetSFX = "Abilities\\Spells\\Demon\\DemonBoltImpact"
     
     private constant real lightningRadius = 400.
     private constant real lightningDamage = 25.
@@ -68,6 +68,7 @@ endfunction
 
 private function Init takes nothing returns nothing
     call DamageEvent_Create(OnAttack, 10)
+    call Preload(targetSFX)
 endfunction
 
 

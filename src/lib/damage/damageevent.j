@@ -3,9 +3,11 @@ library DamageEvent initializer Init requires LinkedList
 
 globals
     constant integer DAMAGE_TYPE_EXTRA = 0
+    constant integer DAMAGE_TYPE_PHYSICAL = 1
+    constant integer DAMAGE_TYPE_MAGICAL = 2
 
     private List EventList = 0
-    private integer damageTypeCount = 0
+    private integer damageTypeCount = 2
 endglobals
 
 // Returns a unique integer used for damage types

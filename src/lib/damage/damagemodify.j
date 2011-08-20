@@ -3,9 +3,6 @@ library DamageModify initializer Init requires LightLeaklessDamageDetect, Damage
 
 
 globals
-	integer DAMAGE_TYPE_PHYSICAL = -1
-    integer DAMAGE_TYPE_MAGICAL = -1
-
     private boolean ignoreEvent = false
     
     private constant integer LIFE_BONUS_SPELL_ID   = 'A02K'
@@ -106,9 +103,6 @@ private function DealDamage takes DamagePacket packet returns nothing
 endfunction
 
 private function Init takes nothing returns nothing
-	set DAMAGE_TYPE_PHYSICAL = DamageEvent_NewDamageType()
-	set DAMAGE_TYPE_MAGICAL = DamageEvent_NewDamageType()
-
     call AddOnDamageFunc(Condition(function ConvertDamage))
     call DamageEvent_Create(DealDamage, 1000)
     call XE_PreloadAbility(LIFE_BONUS_SPELL_ID)

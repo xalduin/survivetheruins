@@ -234,19 +234,19 @@ private function GetUnitBuff takes unit whichUnit, integer buffKey returns BuffD
     return 0
 endfunction
 
-function UnitApplyBuff takes unit caster, unit target, BuffType buffType, integer level, real duration returns nothing
+function UnitApplyBuff takes unit caster, unit target, BuffType buffType, integer level, real duration returns BuffData
  local BuffList list
  local BuffData data = GetUnitBuff(target, buffType.getKey())
 
     if IsUnitType(target, UNIT_TYPE_DEAD) == true then
         call buffType.destroy()
-        return
+        return 0
     endif
 
     if buffType <= 0 then
         debug call BJDebugMsg("BuffType <= 0")
         call buffType.destroy()
-        return
+        return 0
     endif
 
     if data == 0 then
@@ -270,11 +270,11 @@ function UnitApplyBuff takes unit caster, unit target, BuffType buffType, intege
 
         call data.buffType.onCreate(data)
     else
-        //call BJDebugMsg("onRecastDestroy")
         call buffType.destroy()
         call data.buffType.onRecast(data, caster, level, duration)
     endif
 
+	return data
 endfunction
 
 // Please do not call from within a buff method

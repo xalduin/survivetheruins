@@ -72,14 +72,21 @@ private function UpdateTowerStats takes nothing returns nothing
  set expired = null
 endfunction
 
-private function UpdateBuildingStats takes nothing returns nothing
+private function UpdateBuildingStats takes unit building returns nothing
  local timer t = NewTimerStart(.25, false, function UpdateTowerStats)
  local UnitData data = UnitData.create()
 
-    set data.u = GetConstructedStructure()
+    set data.u = building
     call SetTimerData(t, data)
 
  set t = null
+endfunction
+
+private function UpdateBuilding_Upgrade takes nothing returns nothing
+	call UpdateBuildingStats(GetTriggerUnit())
+endfunction
+private function UpdateBuilding_Construct takes nothing returns nothing
+	call UpdateBuildingStats(GetConstructedStructure())
 endfunction
 
 //=================================
@@ -87,8 +94,11 @@ endfunction
 private function Init takes nothing returns nothing
  local trigger t = CreateTrigger()
  	call TriggerRegisterAnyUnitEventBJ(t, EVENT_PLAYER_UNIT_UPGRADE_FINISH)
+ 	call TriggerAddAction(t, function UpdateBuilding_Upgrade)
+ 	
+ 	set t = CreateTrigger()
     call TriggerRegisterAnyUnitEventBJ(t, EVENT_PLAYER_UNIT_CONSTRUCT_FINISH)
- 	call TriggerAddAction(t, function UpdateBuildingStats)
+ 	call TriggerAddAction(t, function UpdateBuilding_Construct)
 
     call TimerStart(CreateTimer(), 5., true, function AbilityUpgrade)
 endfunction
