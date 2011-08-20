@@ -52,9 +52,10 @@ private function Command takes nothing returns nothing
         set currentTier = currentTier + 1
     endif
     
-    if totalTime >= 420. and not spawnedInfernal then
+    // Infernal - 21 minutes remaining
+    if totalTime >= 540. and not spawnedInfernal then
     	set spawnedInfernal = true
-    	//call StartInfernal(CreateSpawn('n00E'))
+    	call StartInfernal(CreateSpawn('n00E'))
     	call ClearTextMessages()
     	call DisplayTextToPlayer(GetLocalPlayer(), 0., 0., "You can feel the temperature begin to rise...")
     endif

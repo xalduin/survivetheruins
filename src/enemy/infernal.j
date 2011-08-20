@@ -10,7 +10,7 @@ globals
 	
 	// For Immolation Buff
 	private constant real      	 immolationAOE        = 300.
-	private constant real      	 immolationDamage     = 10.
+	private constant real      	 immolationDamage     = 5.
 	private constant integer   	 immolationDamageType = DAMAGE_TYPE_MAGICAL
 	private			 boolexpr	 immolationFilter	  = null
 	
@@ -19,7 +19,7 @@ globals
 	// Explosion Damage Configuration
 	private constant real     warningDuration     = 3.
 	private constant real  	  explosionAOE        = 600.
-	private constant real     explosionDamage     = 100.
+	private constant real     explosionDamage     = 150.
 	private constant integer  explosionDamageType = DAMAGE_TYPE_EXTRA
 	private 		 boolexpr explosionFilter	  = null
 	
