@@ -97,6 +97,11 @@ private function DealDamage takes DamagePacket packet returns nothing
 
     set damage = damage * (1. - reduction)
 
+	// A null unit can't do damage
+	if packet.source == null then
+		set packet.source = packet.target
+	endif
+
     set ignoreEvent = true
     call UnitDamageTarget(packet.source, packet.target, damage, false, false, ATTACK_TYPE_CHAOS, DAMAGE_TYPE_UNIVERSAL, null)
     set ignoreEvent = false
