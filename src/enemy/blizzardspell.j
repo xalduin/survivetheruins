@@ -5,8 +5,8 @@ globals
     //private constant integer dummyAuraId = 'A045'
     //private constant integer dummyBuffId = 'B00I'
 
-    private constant real unitDamage = 200.
-    private constant real buildingDamage = 100.
+    private constant real unitDamage = 100.
+    private constant real buildingDamage = 150.
     public constant real damageAOE = 175.
     private constant real slowDuration = 5.
     
@@ -67,7 +67,7 @@ private function Blizzard_TrailEffect takes unit missle, integer structData retu
     // Add enemies that will be damaged to the group
     call GroupRemoveGroup(data.damagedEnemies, temp)
     call GroupAddGroup(temp, data.damagedEnemies)
-    
+
     call DamageGroup(data.caster, unitDamage, temp, DAMAGE_TYPE_MAGICAL)
     call GroupApplyBuff(data.caster, temp, BlizzardBuff(), 1, slowDuration)
 
