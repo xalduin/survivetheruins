@@ -1,7 +1,9 @@
-library StatsBoards initializer Init requires Board, UnitStatStorage
+library StatsBoards initializer Init requires Board, UnitStatStorage, Debug
 
 
 globals
+	private constant boolean ENABLE_DEBUG = true
+
     private Board playerStats       // Shared
     private Board array unitStats   // 1 per player
     private integer playerCount = 0
@@ -18,6 +20,14 @@ globals
     private constant integer HPREGEN_ROW = 3
     private constant integer MANAREGEN_ROW = 4
 endglobals
+
+// Enable enhanced info if debugging is desired
+static if Debug_Enabled then
+	globals
+		private constant integer DAMAGE_ROW = 5
+    	private constant integer ARMOR_ROW = 6
+    endglobals
+endif
 
 private struct PlayerBoardInfo
     integer kills = 0
@@ -91,6 +101,12 @@ function UpdateUnitStatsBoard takes player whichPlayer, unit target returns noth
         set board[1][RESIST_ROW].text = ""
         set board[1][HPREGEN_ROW].text = ""
         set board[1][MANAREGEN_ROW].text = ""
+        
+        static if Debug_Enabled then
+        	set board[1][DAMAGE_ROW].text = ""
+        	set board[1][ARMOR_ROW].text = ""
+        endif
+        	
         return
     endif
 
@@ -104,6 +120,11 @@ function UpdateUnitStatsBoard takes player whichPlayer, unit target returns noth
     set board[1][RESIST_ROW].text = I2S(R2I(GetUnitResistance(target)))
     set board[1][HPREGEN_ROW].text = FormatReal(GetUnitHpRegen(target), 2)
     set board[1][MANAREGEN_ROW].text = FormatReal(GetUnitManaRegen(target), 2)
+    
+    static if Debug_Enabled then
+    	set board[1][DAMAGE_ROW].text = FormatReal(GetUnitDamage(target), 2)
+    	set board[1][ARMOR_ROW].text = FormatReal(GetUnitArmor(target), 2)
+    endif
 endfunction
 
 function SwitchBoard takes player p returns nothing
@@ -152,24 +173,36 @@ private function CreateUnitStatBoards takes nothing returns nothing
     set board.title = "(Select a unit)"
     set board.row.count = 4
     set board.col.count = 1
+    
+    static if Debug_Enabled then
+    	set board.row.count = 6
+    endif
 
     set board.col[0].width = .07
     set board.col[1].width = .04
     
-    set bi = board[0][0]
+    set bi = board[0][ATKSPD_ROW]
     set bi.text = "Attack Speed"
     
-    set bi = board[0][1]
+    set bi = board[0][MOVSPD_ROW]
     set bi.text = "Move Speed"
     
-    set bi = board[0][2]
+    set bi = board[0][RESIST_ROW]
     set bi.text = "Resistance"
     
-    set bi = board[0][3]
+    set bi = board[0][HPREGEN_ROW]
     set bi.text = "HP Regen"
     
-    set bi = board[0][4]
+    set bi = board[0][MANAREGEN_ROW]
     set bi.text = "Mana Regen"
+    
+    static if Debug_Enabled then
+    	set bi = board[0][DAMAGE_ROW]
+    	set bi.text = "Damage"
+    
+    	set bi = board[0][ARMOR_ROW]
+    	set bi.text = "Armor"
+    endif
 
     set board.visible[picked] = true
     set board.minimized[picked] = false
