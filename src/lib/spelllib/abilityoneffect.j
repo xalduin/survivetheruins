@@ -12,10 +12,6 @@ globals
     private hashtable table
 endglobals
 
-private function HandleToInt takes handle h returns integer
-    return GetHandleId(h) // requires 1.23b
-endfunction
-
 private function StoreTrigger takes integer id, trigger t returns nothing
     call SaveTriggerHandle(table, id, 0, t)
 endfunction
