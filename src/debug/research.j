@@ -3,6 +3,8 @@
 
 // Disabled for release
 
+// Commented out because static if not working properly
+/*
 static if Debug_Enabled then
 scope Research initializer Init
 
@@ -45,3 +47,4 @@ endfunction
  
 endscope
 endif
+*/

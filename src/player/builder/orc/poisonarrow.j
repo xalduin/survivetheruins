@@ -2,9 +2,6 @@ scope OrcPoisonArrow initializer Init
 
 
 globals
-    private constant integer UNIT_BATTLE_TOWER = 'o003'
-    private constant integer UNIT_ASSAULT_TOWER = 'o004'
-    private constant integer UNIT_WAR_TOWER = 'o008'
 
     private constant integer dummyAuraId = 'A02Y'
     private constant integer dummyBuffId = 'B009'
@@ -83,8 +80,8 @@ private function OnAttack takes DamagePacket packet returns nothing
  local unit target = packet.target
  local unit attacker = packet.source
  local integer unitType = GetUnitTypeId(attacker)
- local boolean correctUnit = unitType == UNIT_BATTLE_TOWER or unitType == UNIT_WAR_TOWER or unitType == UNIT_ASSAULT_TOWER
- local integer level = GetPlayerTechCount(GetOwningPlayer(attacker), POISON_ARROW_UPGRADE, true)
+ local boolean correctUnit = unitType == Rawcode_UNIT_BATTLE_TOWER or unitType == Rawcode_UNIT_WAR_TOWER or unitType == Rawcode_UNIT_ASSAULT_TOWER
+ local integer level = GetPlayerTechCount(GetOwningPlayer(attacker), Rawcode_RESEARCH_POISON_ARROWS, true)
  
     if packet.isAttack and level > 0 and correctUnit and IsUnitType(target, UNIT_TYPE_MECHANICAL) == false then
         call UnitApplyBuff(attacker, target, PoisonArrowBuff.create(), level, Duration(level))

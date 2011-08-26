@@ -1,31 +1,26 @@
 scope DemolisherFix initializer Init
 
 
-globals
-	constant integer UNIT_DEMOLISHER		  = 'o005'
-	constant integer UNIT_ULTIMATE_DEMOLISHER = 'o007'
-endglobals
-
 //====================
 // Condition Functions
 //====================
 
 private function IsUnitUltimateDemolisher takes nothing returns boolean
-	return GetUnitTypeId(GetTriggerUnit()) == UNIT_ULTIMATE_DEMOLISHER
+	return GetUnitTypeId(GetTriggerUnit()) == Rawcode_UNIT_ULTIMATE_DEMOLISHER
 endfunction
 
 private function IsUnitDemolisher takes nothing returns boolean
-	return GetUnitTypeId(GetTriggerUnit()) == UNIT_DEMOLISHER
+	return GetUnitTypeId(GetTriggerUnit()) == Rawcode_UNIT_DEMOLISHER
 endfunction
 
 //==================
 
 private function LimitDemolisher takes nothing returns nothing
-	call SetPlayerTechMaxAllowedSwap(UNIT_DEMOLISHER, 0, GetOwningPlayer(GetTriggerUnit()))
+	call SetPlayerTechMaxAllowed(GetOwningPlayer(GetTriggerUnit()), Rawcode_UNIT_DEMOLISHER, 0)
 endfunction
 
 private function EnableDemolisher takes nothing returns nothing
-	call SetPlayerTechMaxAllowedSwap(UNIT_DEMOLISHER, 1, GetOwningPlayer(GetTriggerUnit()))
+	call SetPlayerTechMaxAllowed(GetOwningPlayer(GetTriggerUnit()), Rawcode_UNIT_DEMOLISHER, 1)
 endfunction
 
 //===================

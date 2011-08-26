@@ -1,4 +1,4 @@
-library SetResearch
+library SetResearch requires Rawcode
 
 
 globals
@@ -34,28 +34,28 @@ endfunction
 
 // Clears all unique (builder specific) entries from research center
 function ResetResearch takes player p returns nothing
-    call SetPlayerTechMaxAllowed(p, 'R000', 0)
-    call SetPlayerTechMaxAllowed(p, 'R001', 0)
-    call SetPlayerTechMaxAllowed(p, 'R003', 0)
-    call SetPlayerTechMaxAllowed(p, 'R005', 0)
-    call SetPlayerTechMaxAllowed(p, 'R006', 0)
-    call SetPlayerTechMaxAllowed(p, 'R007', 0)
-    call SetPlayerTechMaxAllowed(p, 'R008', 0)
-    call SetPlayerTechMaxAllowed(p, 'R009', 0)
+    call SetPlayerTechMaxAllowed(p, Rawcode_RESEARCH_BLAZING_HEAT, 0)
+    call SetPlayerTechMaxAllowed(p, Rawcode_RESEARCH_IMPROVED_CANNONS, 0)
+    call SetPlayerTechMaxAllowed(p, Rawcode_RESEARCH_DEMOLISHER, 0)
+    call SetPlayerTechMaxAllowed(p, Rawcode_RESEARCH_ELECTRIFIED_TOWERS, 0)
+    call SetPlayerTechMaxAllowed(p, Rawcode_RESEARCH_THUNDER_TOWER, 0)
+    call SetPlayerTechMaxAllowed(p, Rawcode_RESEARCH_SIEGE_TANK, 0)
+    call SetPlayerTechMaxAllowed(p, Rawcode_RESEARCH_BATTLE_TANK, 0)
+    call SetPlayerTechMaxAllowed(p, Rawcode_RESEARCH_MOBILE_WAR_MACHINE, 0)
 endfunction
 
 function SetTechAllowed takes player p returns nothing
-	call SetPlayerTechMaxAllowed(p, 'h004', 1)	// Bunker
-    call SetPlayerTechMaxAllowed(p, 'h00M', 1)	// Tank
-    call SetPlayerTechMaxAllowed(p, 'h00W', 1)	// Lightning Tower
-    call SetPlayerTechMaxAllowed(p, 'h011', 0)	// Thunder Tower
-    call SetPlayerTechMaxAllowed(p, 'h012', 1)	// Mobile War Station
-    call SetPlayerTechMaxAllowed(p, 'h010', 0)	// Battle Tank
-    call SetPlayerTechMaxAllowed(p, 'h00Z', 0)	// Siege Tank
-    call SetPlayerTechMaxAllowed(p, 'h00O', 0)	// Research Center	(starts disabled)
-    call SetPlayerTechMaxAllowed(p, 'o005', 1)	// Demolisher
-    call SetPlayerTechMaxAllowed(p, 'h00X', 0)	// Assault Tank
-    call SetPlayerTechMaxAllowed(p, 'h00Y', 0)	// Onslaught Tank
+	call SetPlayerTechMaxAllowed(p, Rawcode_UNIT_BUNKER, 1)	// Bunker
+    call SetPlayerTechMaxAllowed(p, Rawcode_UNIT_TANK, 1)	// Tank
+    call SetPlayerTechMaxAllowed(p, Rawcode_UNIT_LIGHTNING_TOWER, 1)	// Lightning Tower
+    call SetPlayerTechMaxAllowed(p, Rawcode_UNIT_THUNDER_TOWER, 0)	// Thunder Tower
+    call SetPlayerTechMaxAllowed(p, Rawcode_UNIT_MOBILE_WAR_STATION, 1)	// Mobile War Station
+    call SetPlayerTechMaxAllowed(p, Rawcode_UNIT_BATTLE_TANK, 0)	// Battle Tank
+    call SetPlayerTechMaxAllowed(p, Rawcode_UNIT_SIEGE_TANK, 0)	// Siege Tank
+    call SetPlayerTechMaxAllowed(p, Rawcode_UNIT_RESEARCH_CENTER, 0)	// Research Center	(starts disabled)
+    call SetPlayerTechMaxAllowed(p, Rawcode_UNIT_DEMOLISHER, 1)	// Demolisher
+    call SetPlayerTechMaxAllowed(p, Rawcode_UNIT_ASSAULT_TANK, 0)	// Assault Tank
+    call SetPlayerTechMaxAllowed(p, Rawcode_UNIT_ONSLAUGHT_TANK, 0)	// Onslaught Tank
 endfunction
 
 

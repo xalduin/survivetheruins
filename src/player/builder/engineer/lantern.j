@@ -2,7 +2,6 @@ scope Lantern initializer Init
 
 
 globals
-    private constant integer lanternId = 'h003'
     private constant integer dummyAuraId = 'A002'
     private constant integer dummyBuffId = 'B00P'
     private constant key buffKey
@@ -60,7 +59,7 @@ endfunction
 private function ExecuteBuff takes nothing returns boolean
  local unit triggerUnit = GetTriggerUnit()
 
-    if GetUnitTypeId(triggerUnit) != lanternId then
+    if GetUnitTypeId(triggerUnit) != Rawcode_UNIT_MAGICAL_LANTERN then
         set triggerUnit = null
         return false
     endif

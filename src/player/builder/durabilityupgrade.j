@@ -1,4 +1,4 @@
-scope DurabilityUpgrade initializer Init
+library DurabilityUpgrade initializer Init requires Debug, UpgradeStats, UnitStats
 
 
 globals
@@ -10,6 +10,23 @@ globals
     private constant real hpMult = .2
     private constant real armorBonus = 5.
 endglobals
+
+static if Debug_Enabled then
+
+function DoDurabilityUpgrade takes player owner returns nothing
+ local integer i = 0
+ 
+    loop
+        exitwhen i >= buildingCount
+        call AddUnitTypeHpMult(owner, buildingIds[i], hpMult)
+        call AddUnitTypeArmorBonus(owner, buildingIds[i], armorBonus)
+        set i = i + 1
+    endloop
+    
+    call UnitStats_PlayerUpdate(owner)
+endfunction
+    
+endif
 
 private function Main takes nothing returns nothing
  local player owner = GetOwningPlayer(GetTriggerUnit())
@@ -65,7 +82,7 @@ private function Init takes nothing returns nothing
     call AddBuilding('h00J')	// Arcane Tower
     call AddBuilding('h00K')	// Advanced Arcane Tower
     
-    call AddBuilding('h00N')	// Guard Tower
+    call AddBuilding(Rawcode_UNIT_GUARD_TOWER)	// Guard Tower
     call AddBuilding('h00Q')	// Advanced Guard Tower
     
     call AddBuilding('h00M')	// Tank
@@ -134,4 +151,4 @@ private function Init takes nothing returns nothing
 endfunction
 
 
-endscope
+endlibrary

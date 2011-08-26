@@ -5,6 +5,7 @@ library TimerStack initializer InitStack
 
 
 globals
+	// Additional debug switch for more verbose output
     private constant boolean DEBUG_STACK = false
     constant integer maxTimers = 511
 
@@ -38,9 +39,9 @@ endfunction
 function NewTimer takes nothing returns timer
     set timerCount = timerCount - 1
 
-    static if DEBUG_MODE then
+    static if Debug_Enabled then
         if timerCount < 0 then
-            call BJDebugMsg("|cffff0000Critical Error:|r Reached timer stack limit!")
+            call Debug_Message("timerstack", "|cffff0000Critical Error:|r Reached timer stack limit!")
         endif
     endif
     
@@ -56,9 +57,9 @@ function ReleaseTimer takes timer t returns nothing
 
     set timerCount = timerCount + 1
     
-    static if DEBUG_MODE then
+    static if Debug_Enabled then
         if timerCount > maxTimers then
-            call BJDebugMsg("|cffff0000Critical Error:|r Timer Stack overflow")
+            call Debug_Message("timerstack", "|cffff0000Critical Error:|r Timer Stack overflow")
         endif
     endif
     

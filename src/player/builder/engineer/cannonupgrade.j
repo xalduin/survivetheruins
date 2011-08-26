@@ -1,4 +1,4 @@
-scope ImprovedCannonsUpgrade initializer Init
+library ImprovedCannonsUpgrade initializer Init requires Debug, UnitStats, UpgradeStats, Rawcode
 
 
 globals
@@ -28,7 +28,7 @@ globals
 	private constant integer advancedArcaneId = 'h00K'
 	private constant real advancedArcaneDamageBonus = 22.5
 	
-	private constant integer guardTowerId = 'h00N'
+	private constant integer guardTowerId = Rawcode_UNIT_GUARD_TOWER
 	private constant real guardDamageBonus = 25.
 	private constant integer advancedGuardId = 'h00Q'
 	private constant real advancedGuardDamageBonus = 40.
@@ -41,6 +41,34 @@ private function IceBonusDamage takes integer level returns real
     return I2R(level + 4 + level/2)
 endfunction
 
+static if Debug_Enabled then
+
+function DoCannonUpgrade takes player owner returns nothing
+ local integer i = 0
+
+    loop
+        exitwhen i >= towerCount
+        call AddUnitTypeDamageBonus(owner, fireTowers[i], FireBonusDamage(i))
+        call AddUnitTypeDamageBonus(owner, iceTowers[i], IceBonusDamage(i))
+        set i = i + 1
+    endloop
+
+    call AddUnitTypeDamageBonus(owner, tankId, tankBonus)
+    call AddUnitTypeDamageBonus(owner, siegeId, siegeBonus)
+    call AddUnitTypeDamageBonus(owner, battleId, battleBonus)
+	call AddUnitTypeDamageBonus(owner, onslaughtId, onslaughtBonus)
+	call AddUnitTypeDamageBonus(owner, assaultId, assaultBonus)
+    
+	call AddUnitTypeDamageBonus(owner, arcaneTowerId, arcaneDamageBonus)
+	call AddUnitTypeDamageBonus(owner, advancedArcaneId, advancedArcaneDamageBonus)
+	call AddUnitTypeDamageBonus(owner, Rawcode_UNIT_GUARD_TOWER, guardDamageBonus)
+	call AddUnitTypeDamageBonus(owner, advancedGuardId, advancedGuardDamageBonus)
+	
+    call UnitStats_PlayerUpdate(owner)
+endfunction
+
+endif
+
 private function Main takes nothing returns nothing
  local player owner = GetOwningPlayer(GetTriggerUnit())
  local integer i = 0
@@ -52,7 +80,7 @@ private function Main takes nothing returns nothing
         set i = i + 1
     endloop
 
-    call AddUnitTypeDamageBonus(owner, tankId, tankBonus)
+    call AddUnitTypeDamageBonus(owner, Rawcode_UNIT_TANK, tankBonus)
     call AddUnitTypeDamageBonus(owner, siegeId, siegeBonus)
     call AddUnitTypeDamageBonus(owner, battleId, battleBonus)
 	call AddUnitTypeDamageBonus(owner, onslaughtId, onslaughtBonus)
@@ -78,14 +106,14 @@ private function Init takes nothing returns nothing
     call TriggerAddCondition(t, Condition(function Conditions))
     call TriggerAddAction(t, function Main)
     
-    set fireTowers[0] = 'n006'
-    set fireTowers[1] = 'n007'
-    set fireTowers[2] = 'n00M'
+    set fireTowers[0] = Rawcode_UNIT_FIRE_CANNON	//'n006'
+    set fireTowers[1] = Rawcode_UNIT_BURNING_CANNON	//'n007'
+    set fireTowers[2] = Rawcode_UNIT_BLAZING_CANNON //'n00M'
     
-    set iceTowers[0] = 'n009'
-    set iceTowers[1] = 'n00A'
-    set iceTowers[2] = 'n00N'
+    set iceTowers[0] = Rawcode_UNIT_ICE_TURRET			//'n009'
+    set iceTowers[1] = Rawcode_UNIT_FROST_BLASTER		//'n00A'
+    set iceTowers[2] = Rawcode_UNIT_HOARFROST_CANNON	//'n00N'
 endfunction
 
 
-endscope
+endlibrary

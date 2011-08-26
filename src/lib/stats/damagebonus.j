@@ -3,7 +3,7 @@
 // No limit to the amount of damage able to be added, but the larger the number,
 // the longer it will take to be added
 
-library PermanentDamageBonus initializer Init requires xepreload, Table, Preload
+library PermanentDamageBonus initializer Init requires xepreload, Table, Preload, AutoIndex
 
 // Modified from BonusMod by Earth-Fury
 /*
@@ -111,6 +111,15 @@ function UnitAddPermanentDamage takes unit whichUnit, integer bonus returns noth
     if removeInventory then
         call UnitRemoveAbility(whichUnit, ABILITY_HERO_INVENTORY)
     endif
+endfunction
+
+
+// For use in cases in which the bonuses are removed from a unit
+// Ex: Unit upgrade, unit upgrade cancelled, etc
+function UnitResetPermanentDamage takes unit whichUnit returns nothing
+	if BonusTable.exists(whichUnit) then
+		set BonusTable[whichUnit] = 0
+	endif
 endfunction
 
 private function OnLeaveMap takes unit u returns nothing
