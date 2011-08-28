@@ -6,7 +6,7 @@ globals
     //private constant integer dummyBuffId = 'B00I'
 
     private constant real unitDamage = 100.
-    private constant real buildingDamage = 150.
+    private constant real buildingDamage = 100.
     public constant real damageAOE = 175.
     private constant real slowDuration = 5.
     
