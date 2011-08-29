@@ -1,4 +1,4 @@
-scope ElectricGenerator initializer Init
+library ElectricGenerator initializer Init requires BuildingMisc, CommonFilters, ExTextTag, UnitUtils, Table
 
 
 globals
@@ -55,8 +55,13 @@ private function IsUnitGenerator_Filter takes nothing returns boolean
     return Mana(GetFilterUnit()) > 0 and not IsBuildingDisabled(GetFilterUnit())
 endfunction
 
-private function Filter_UnitHasMana takes nothing returns boolean
+private function Filter_UnitCanUseGenerator takes nothing returns boolean
  local real maxMana = GetUnitState(GetFilterUnit(), UNIT_STATE_MAX_MANA)
+
+	if IsBuildingDisabled(GetFilterUnit()) then
+		return false
+	endif
+
     return maxMana > 0 and GetUnitState(GetFilterUnit(), UNIT_STATE_MANA) < maxMana and GetFilterUnit() != currentGenerator
 endfunction
 
@@ -150,7 +155,7 @@ private function GeneratorMain takes nothing returns nothing
 endfunction
 
 private function Init takes nothing returns nothing
-    set manaFilter = And( Filter(function Filter_UnitHasMana), And(Filter_IsUnitStructure, Filter_IsUnitPlayerUnit) )
+    set manaFilter = And( Filter(function Filter_UnitCanUseGenerator), And(Filter_IsUnitStructure, Filter_IsUnitPlayerUnit) )
     set Filter_IsUnitGenerator = Filter(function IsUnitGenerator_Filter)
     
     set manaTable = HandleTable.create()
@@ -159,4 +164,4 @@ private function Init takes nothing returns nothing
 endfunction
 
 
-endscope
+endlibrary

@@ -87,6 +87,7 @@
 //! import "src/player/builder/engineer/lantern.j"
 //! import "src/player/builder/engineer/tankmisc.j"
 //! import "src/player/builder/engineer/tankupgrade.j"
+//! import "src/player/builder/goldgenerator.j"
 //! import "src/player/builder/misc.j"
 //! import "src/player/builder/orc/burningoil.j"
 //! import "src/player/builder/orc/demolisherfix.j"

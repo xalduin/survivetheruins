@@ -22,6 +22,8 @@ private function IsUnitTypeShield takes nothing returns boolean
 	// A shield isn't as good as the best shield if it has less mana
 	elseif bestShield != null and GetUnitState(GetFilterUnit(), UNIT_STATE_MANA) <= GetUnitState(bestShield, UNIT_STATE_MANA) then
 		return false
+	elseif IsBuildingDisabled(GetFilterUnit()) then
+		return false
 	endif
  
 	set bestShield = GetFilterUnit()

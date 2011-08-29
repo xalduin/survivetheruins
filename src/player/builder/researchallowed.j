@@ -23,7 +23,7 @@ function BuilderSetResearch takes unit u returns nothing
 
     elseif unitId == phyId then
         call SetPlayerTechMaxAllowed(p, 'R005', 3)	// Electrified Towers
-        call SetPlayerTechMaxAllowed(p, 'R006', 1) // Thunder Tower
+        call SetPlayerTechMaxAllowed(p, 'R006', 1) 	// Thunder Tower
         
     elseif unitId == orcId then
     	call SetPlayerTechMaxAllowed(p, 'R003', 1)	//	Demolisher
